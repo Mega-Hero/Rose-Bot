@@ -26,14 +26,14 @@ def rem_cmds(bot: Bot, update: Update, args: List[str]) -> str:
     if not args:
         del_pref = sql.get_cmd_pref(chat.id)
         if del_pref:
-            update.effective_message.reply_text("I should be deleting `@bluetextbot` messages now.")
+            update.effective_message.reply_text("I should be deleting `@MHBeastBoT` messages now.")
         else:
-            update.effective_message.reply_text("I'm currently not deleting `@bluetextbot` messages!")
+            update.effective_message.reply_text("I'm currently not deleting `@MHBeastBoT` messages!")
         return ""
 
     if args[0].lower() in ("on", "yes"):
         sql.set_cmd_joined(str(chat.id), True)
-        update.effective_message.reply_text("I'll try to delete `@bluetextbot` messages!")
+        update.effective_message.reply_text("I'll try to delete `@MHBeastBoT` messages!")
         return "<b>{}:</b>" \
                "\n#ANTI_COMMAND" \
                "\n<b>Admin:</b> {}" \
@@ -41,7 +41,7 @@ def rem_cmds(bot: Bot, update: Update, args: List[str]) -> str:
                                                                          mention_html(user.id, user.first_name))
     elif args[0].lower() in ("off", "no"):
         sql.set_cmd_joined(str(chat.id), False)
-        update.effective_message.reply_text("I won't delete `@bluetextbot`  messages.")
+        update.effective_message.reply_text("I won't delete `@MHBeastBoT`  messages.")
         return "<b>{}:</b>" \
                "\n#ANTI_COMMAND" \
                "\n<b>Admin:</b> {}" \
@@ -67,7 +67,7 @@ def rem_slash_commands(bot: Bot, update: Update) -> str:
 
 __help__ = """
 I remove messages starting with a /command in groups and supergroups.
-- /rmcmd <on/off>: when someone tries to send a @BlueTextBot message, I will try to delete that!
+- /rmcmd <on/off>: when someone tries to send a @MHBeastBoT message, I will try to delete that!
 """
 
 __mod_name__ = "anticommand"
