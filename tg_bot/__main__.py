@@ -19,7 +19,7 @@ from tg_bot.modules.helper_funcs.misc import paginate_modules
 
 PM_START_TEXT = """
 
-హాయ్ {}, నీ పేరు {}! నీ [నామం](tg://user?id={}) ఇది ఒక గ్రూప్ అడ్మిన్ బోట్.
+హాయ్ నీ పేరు {}, నా పేరు {}! నీ [ప్రొఫైల్ లింక్](tg://user?id={}) . ఇది ఒక గ్రూప్ అడ్మిన్ బోట్.
 
 ఈ బొట్ నీ పైథాన్ టెలిగ్రామ్ బోట్ నుంచి పైథాన్3 లో నిర్మించబడింది. ఛానల్ నీ జాయిన్ అవ్వండి @MutyalaHarshith
 
@@ -28,25 +28,25 @@ PM_START_TEXT = """
 """
 
 HELP_STRINGS = """
-Hey there! My name is *{}*.
-I'm a modular group management bot with a few fun extras! Have a look at the following for an idea of some of \
-the things I can help you with.
+హే! నా పేరు *{}*.
+నేను కొన్ని సరదా అదనపు అంశాలతో కూడిన మాడ్యులర్ గ్రూప్ మేనేజ్‌మెంట్ బాట్‌ని! కొన్ని ఆలోచనల కోసం క్రింది వాటిని చూడండి \
+నేను మీకు సహాయం చేయగలిగినవి.
 *Main* commands available:
- - /start: start the bot
- - /help: PM's you this message.
- - /help <module name>: PM's you info about that module.
- - /donate: information about how to donate!
+ - /start: బోట్ ప్రారంభించండి
+ - /help: ఈ సందేశం మీకు PM పంపబడింది.
+ - /help <module name>: ఆ మాడ్యూల్ గురించి PM మీ సమాచారం.
+ - /donate: ఎలా విరాళం ఇవ్వాలనే దాని గురించి సమాచారం!
  - /settings:
-   - in PM: will send you your settings for all supported modules.
-   - in a group: will redirect you to pm, with all that chat's settings.
+   - PMలో: మద్దతు ఉన్న అన్ని మాడ్యూల్‌ల కోసం మీ సెట్టింగ్‌లను మీకు పంపుతుంది.
+   - సమూహంలో: అన్ని చాట్ సెట్టింగ్‌లతో మిమ్మల్ని pmకి దారి మళ్లిస్తుంది.
 {}
 And the following:
 """.format(dispatcher.bot.first_name, "" if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
 
-DONATE_STRING = """Heya, glad to hear you want to donate!
+DONATE_STRING = """హే, మీరు విరాళం ఇవ్వాలనుకుంటున్నారని విన్నందుకు ఆనందంగా ఉంది!
 నాకు డొనేషన్ అక్కర్లేదు థాంక్స్ చెప్పండి చాలు [నన్ను తయారుచేసిన వాడు](t.me/MutyalaHarshith) మీకు కృతజ్ఞతలు డొనేషన్ ఇవ్వాలనుకుంటే \
-motivate him to make me even better.  Hi 😊 to ఈ ప్రయాణం అందరి థాంక్స్, and/or beer \
-(see my bio!). He's just a Best student."""
+నన్ను మరింత మెరుగయ్యేలా అతనిని ప్రేరేపించు. హాయ్ 😊 ఈ ప్రయాణం అందరి థాంక్స్, and/or beer \
+(see my bio!). నేను ఉత్తమ విద్యార్థిని."""
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -69,7 +69,7 @@ for module_name in ALL_MODULES:
     if not imported_module.__mod_name__.lower() in IMPORTED:
         IMPORTED[imported_module.__mod_name__.lower()] = imported_module
     else:
-        raise Exception("Can't have two modules with the same name! Please change one")
+        raise Exception("ఒకే పేరుతో రెండు మాడ్యూల్‌లు ఉండకూడదు! దయచేసి ఒకటి మార్చండి")
 
     if hasattr(imported_module, "__help__") and imported_module.__help__:
         HELPABLE[imported_module.__mod_name__.lower()] = imported_module
@@ -148,7 +148,7 @@ def start(bot: Bot, update: Update, args: List[str]):
                      [InlineKeyboardButton(text="💖 YT Channel", url="https://youtube.com/channel/UCE72_6rmOJYa6JTXNaZ5LSw"), InlineKeyboardButton(text="🛠 Help", url="https://t.me/{}?start=help".format(bot.username)) ]]))
 
     else:
-        update.effective_message.reply_text("ചത്തിട്ടില്ലാ...")
+        update.effective_message.reply_text("చత్తలేదు...")
 
 
 # for test purposes
@@ -386,9 +386,9 @@ def donate(bot: Bot, update: Update):
         try:
             bot.send_message(user.id, DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
 
-            update.effective_message.reply_text("I've PM'ed you about donating to my creator!")
+            update.effective_message.reply_text("నా సృష్టికర్తకు విరాళం ఇవ్వడం గురించి నేను మీకు PM చేశాను!")
         except Unauthorized:
-            update.effective_message.reply_text("Contact me in PM first to get donation information.")
+            update.effective_message.reply_text("విరాళం సమాచారాన్ని పొందడానికి ముందుగా PM లో నన్ను సంప్రదించండి.")
 
 
 def migrate_chats(bot: Bot, update: Update):
