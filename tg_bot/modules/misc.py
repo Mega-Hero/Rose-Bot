@@ -179,7 +179,7 @@ def slap(bot: Bot, update: Update, args: List[str]):
 
 @run_async
 def get_bot_ip(bot: Bot, update: Update):
-    """ Sends the bot's IP address, so as to be able to ssh in if necessary.
+    """ బోట్ యొక్క IP చిరునామాను పంపుతుంది, తద్వారా అవసరమైతే ssh ఇన్ చేయగలరు.
         OWNER ONLY.
     """
     res = requests.get("http://ipinfo.io/ip")
@@ -235,32 +235,32 @@ def info(bot: Bot, update: Update, args: List[str]):
     else:
         return
 
-    text = "<b>User info</b>:" \
+    text = "<b>వినియోగదారు సమాచారం</b>:" \
            "\nID: <code>{}</code>" \
-           "\nFirst Name: {}".format(user.id, html.escape(user.first_name))
+           "\nమొదటి పేరు: {}".format(user.id, html.escape(user.first_name))
 
     if user.last_name:
-        text += "\nLast Name: {}".format(html.escape(user.last_name))
+        text += "\nచివరి పేరు: {}".format(html.escape(user.last_name))
 
     if user.username:
-        text += "\nUsername: @{}".format(html.escape(user.username))
+        text += "\nవినియోగదారు పేరు: @{}".format(html.escape(user.username))
 
-    text += "\nPermanent user link: {}".format(mention_html(user.id, "link"))
+    text += "\nశాశ్వత వినియోగదారు లింక్: {}".format(mention_html(user.id, "link"))
 
     if user.id == OWNER_ID:
-        text += "\n\nThis person is my owner - I would never do anything against them!"
+        text += "\n\nఈ వ్యక్తి నా యజమాని - నేను వారికి వ్యతిరేకంగా ఏమీ చేయను!"
     else:
         if user.id in SUDO_USERS:
-            text += "\nThis person is one of my sudo users! " \
-                    "Nearly as powerful as my owner - so watch it."
+            text += "\nఈ వ్యక్తి నా సుడో వినియోగదారులలో ఒకరు! " \"
+                    "దాదాపు నా యజమాని వలె శక్తివంతమైనది - కనుక దీనిని చూడండి."
         else:
             if user.id in SUPPORT_USERS:
-                text += "\nThis person is one of my support users! " \
-                        "Not quite a sudo user, but can still gban you off the map."
+                text += "\nఈ వ్యక్తి నా మద్దతు వినియోగదారులలో ఒకరు! " \"
+                        "చాలా సుడో వినియోగదారు కాదు, కానీ ఇప్పటికీ మిమ్మల్ని మ్యాప్ నుండి తొలగించగలరు."
 
             if user.id in WHITELIST_USERS:
-                text += "\nThis person has been whitelisted! " \
-                        "That means I'm not allowed to ban/kick them."
+                text += "\nఈ వ్యక్తి వైట్‌లిస్ట్ చేయబడ్డాడు! " \"
+                        "అంటే వాటిని నిషేధించడానికి/తన్నడానికి నాకు అనుమతి లేదు."
 
     for mod in USER_INFO:
         mod_info = mod.__user_info__(user.id).strip()
@@ -274,7 +274,7 @@ def info(bot: Bot, update: Update, args: List[str]):
 def get_time(bot: Bot, update: Update, args: List[str]):
     location = " ".join(args)
     if location.lower() == bot.first_name.lower():
-        update.effective_message.reply_text("Its always banhammer time for me!")
+        update.effective_message.reply_text("ఇది నాకు ఎల్లప్పుడూ బాన్‌హామర్ సమయం!")
         bot.send_sticker(update.effective_chat.id, BAN_STICKER)
         return
 
@@ -329,9 +329,7 @@ def gdpr(bot: Bot, update: Update):
     for mod in GDPR:
         mod.__gdpr__(update.effective_user.id)
 
-    update.effective_message.reply_text("Your personal data has been deleted.\n\nNote that this will not unban "
-                                        "you from any chats, as that is telegram data, not Marie data. "
-                                        "Flooding, warns, and gbans are also preserved, as of "
+    update.effective_message.reply_text("మీ వ్యక్తిగత డేటా తొలగించబడింది.\n\nఇది నిషేధాన్ని రద్దు చేయదని గమనించండి"
                                         "[this](https://ico.org.uk/for-organisations/guide-to-the-general-data-protection-regulation-gdpr/individual-rights/right-to-erasure/), "
                                         "which clearly states that the right to erasure does not apply "
                                         "\"for the performance of a task carried out in the public interest\", as is "
@@ -340,25 +338,25 @@ def gdpr(bot: Bot, update: Update):
 
 
 MARKDOWN_HELP = """
-Markdown is a very powerful formatting tool supported by telegram. {} has some enhancements, to make sure that \
-saved messages are correctly parsed, and to allow you to create buttons.
+మార్క్డౌన్ అనేది టెలిగ్రామ్ ద్వారా సపోర్ట్ చేసే చాలా శక్తివంతమైన ఫార్మాటింగ్ సాధనం. {} కొన్ని మెరుగుదలలను కలిగి ఉంది, అని నిర్ధారించుకోవడానికి \
+సేవ్ చేయబడిన సందేశాలు సరిగ్గా అన్వయించబడ్డాయి మరియు బటన్లను సృష్టించడానికి మిమ్మల్ని అనుమతిస్తుంది.
 
-- <code>_italic_</code>: wrapping text with '_' will produce italic text
-- <code>*bold*</code>: wrapping text with '*' will produce bold text
-- <code>`code`</code>: wrapping text with '`' will produce monospaced text, also known as 'code'
-- <code>[sometext](someURL)</code>: this will create a link - the message will just show <code>sometext</code>, \
-and tapping on it will open the page at <code>someURL</code>.
+- <code>_italic_</code>: తో వచనాన్ని చుట్టడం '_' ఇటాలిక్ వచనాన్ని ఉత్పత్తి చేస్తుంది
+- <code>*bold*</code>: తో వచనాన్ని చుట్టడం '*' బోల్డ్ టెక్స్ట్ ఉత్పత్తి చేస్తుంది
+- <code>`code`</code>: తో వచనాన్ని చుట్టడం '`' అని కూడా పిలువబడే మోనోస్పేస్డ్ టెక్స్ట్‌ని ఉత్పత్తి చేస్తుంది 'code'
+- <code>[sometext](someURL)</code>: ఇది ఒక లింక్‌ను సృష్టిస్తుంది - సందేశం కేవలం చూపబడుతుంది <code>sometext</code>, \
+మరియు దానిపై నొక్కడం ద్వారా పేజీ తెరవబడుతుంది <code>someURL</code>.
 EG: <code>[test](example.com)</code>
 
-- <code>[buttontext](buttonurl:someURL)</code>: this is a special enhancement to allow users to have telegram \
-buttons in their markdown. <code>buttontext</code> will be what is displayed on the button, and <code>someurl</code> \
-will be the url which is opened.
-EG: <code>[This is a button](buttonurl:example.com)</code>
+- <code>[buttontext](buttonurl:someURL)</code>: వినియోగదారులు టెలిగ్రామ్‌ని కలిగి ఉండటానికి ఇది ఒక ప్రత్యేక మెరుగుదల \
+వాటి మార్క్‌డౌన్‌లో బటన్లు. <code>buttontext</code> బటన్‌పై ప్రదర్శించబడేది, మరియు <code>someurl</code> \
+తెరవబడిన url అవుతుంది.
+EG: <code>[ఇది ఒక బటన్](buttonurl:example.com)</code>
 
-If you want multiple buttons on the same line, use :same, as such:
+మీకు ఒకే లైన్‌లో బహుళ బటన్‌లు కావాలంటే, ఉపయోగించండి :same, వంటి:
 <code>[one](buttonurl://example.com)
 [two](buttonurl://google.com:same)</code>
-This will create two buttons on a single line, instead of one button per line.
+ఇది ఒక లైన్‌కు ఒక బటన్‌కు బదులుగా ఒకే లైన్‌లో రెండు బటన్‌లను సృష్టిస్తుంది.
 
 Keep in mind that your message <b>MUST</b> contain some text other than just a button!
 """.format(dispatcher.bot.first_name)
@@ -416,15 +414,15 @@ def getsticker(bot: Bot, update: Update):
 
 # /ip is for private use
 __help__ = """
- - /id: get the current group id. If used by replying to a message, gets that user's id.
- - /runs: reply a random string from an array of replies.
- - /slap: slap a user, or get slapped if not a reply.
- - /time <place>: gives the local time at the given place.
- - /info: get information about a user.
- - /gdpr: deletes your information from the bot's database. Private chats only.
- - /markdownhelp: quick summary of how markdown works in telegram - can only be called in private chats.
- - /stickerid: reply to a sticker and get sticker id of that.
- - /getsticker: reply to a sticker and get that sticker as .png and image. 
+ - /id: ప్రస్తుత గ్రూప్ ఐడిని పొందండి. సందేశానికి ప్రత్యుత్తరం ఇవ్వడం ద్వారా ఉపయోగించినట్లయితే, ఆ వినియోగదారు ఐడిని పొందుతుంది.
+ - /runs: ప్రత్యుత్తరాల శ్రేణి నుండి యాదృచ్ఛిక స్ట్రింగ్‌కు ప్రత్యుత్తరం ఇవ్వండి.
+ - /slap: వినియోగదారుని చెంపదెబ్బ కొట్టండి లేదా ప్రత్యుత్తరం ఇవ్వకపోతే చెప్పుతో కొట్టండి.
+ - /time <place>: ఇచ్చిన స్థలంలో స్థానిక సమయాన్ని ఇస్తుంది.
+ - /info: వినియోగదారు గురించి సమాచారాన్ని పొందండి.
+ - /gdpr: బాట్ డేటాబేస్ నుండి మీ సమాచారాన్ని తొలగిస్తుంది. ప్రైవేట్ చాట్‌లు మాత్రమే.
+ - /markdownhelp: టెలిగ్రామ్‌లో మార్క్‌డౌన్ ఎలా పని చేస్తుందో శీఘ్ర సారాంశం - ప్రైవేట్ చాట్‌లలో మాత్రమే కాల్ చేయవచ్చు.
+ - /stickerid: స్టిక్కర్‌కి ప్రత్యుత్తరం ఇవ్వండి మరియు దాని స్టిక్కర్ ఐడిని పొందండి.
+ - /getsticker: స్టిక్కర్‌కి ప్రత్యుత్తరం ఇచ్చి, ఆ స్టిక్కర్‌ను .png మరియు ఇమేజ్‌గా పొందండి. 
 """
 
 __mod_name__ = "Misc"
